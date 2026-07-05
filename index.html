@@ -125,6 +125,11 @@ z-index:999;
 <a href="#">Contact</a>
 </nav>
 
+<div style="text-align:center; margin:20px;">
+  <input type="text" id="searchInput" onkeyup="searchCards()" placeholder="🔍 Search PDFs..."
+  style="width:80%; padding:12px; border-radius:10px; border:1px solid #ccc; font-size:16px;">
+</div>
+  
 <section class="hero">
 <h2>Welcome Students ❤️</h2>
 <p>Free PDFs | JMI Entrance | Computer Notes | English | Islamic Knowledge</p>
@@ -178,5 +183,22 @@ z-index:999;
 💬 WhatsApp
 </a>
 
+<script>
+function searchCards() {
+  let input = document.getElementById("searchInput").value.toLowerCase();
+  let cards = document.getElementsByClassName("card");
+
+  for (let i = 0; i < cards.length; i++) {
+    let text = cards[i].innerText.toLowerCase();
+
+    if (text.indexOf(input) > -1) {
+      cards[i].parentElement.style.display = "";
+    } else {
+      cards[i].parentElement.style.display = "none";
+    }
+  }
+}
+</script>  
+  
 </body>
 </html>
