@@ -6,6 +6,7 @@
 <title>Raza Education Hub</title>
 
 <style>
+
 *{
 margin:0;
 padding:0;
@@ -14,7 +15,7 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background:#f4f7fb;
+background:#f4f6fb;
 }
 
 header{
@@ -25,7 +26,12 @@ text-align:center;
 }
 
 header h1{
-font-size:32px;
+font-size:34px;
+}
+
+header p{
+margin-top:10px;
+font-size:18px;
 }
 
 nav{
@@ -41,34 +47,49 @@ margin:12px;
 font-weight:bold;
 }
 
-.hero{
-padding:50px 20px;
+.search{
 text-align:center;
+margin:20px;
+}
+
+.search input{
+width:85%;
+padding:14px;
+font-size:18px;
+border-radius:12px;
+border:2px solid #ccc;
+}
+
+.hero{
+text-align:center;
+padding:40px 20px;
 }
 
 .hero h2{
-font-size:32px;
+font-size:34px;
 margin-bottom:10px;
 }
 
 .hero p{
-font-size:18px;
-margin-bottom:20px;
+font-size:22px;
+line-height:35px;
 }
 
 .btn{
+display:inline-block;
+margin-top:25px;
 background:#0d6efd;
 color:white;
-padding:14px 28px;
+padding:15px 30px;
 text-decoration:none;
-border-radius:8px;
-font-size:18px;
-display:inline-block;
+border-radius:10px;
+font-size:20px;
+font-weight:bold;
 }
 
 .container{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 gap:20px;
 padding:20px;
 }
@@ -76,36 +97,48 @@ padding:20px;
 .card{
 background:white;
 padding:20px;
-border-radius:12px;
-box-shadow:0 5px 12px rgba(0,0,0,.1);
+border-radius:15px;
+box-shadow:0 4px 10px rgba(0,0,0,.15);
 text-align:center;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
 }
 
 .card h3{
+font-size:24px;
 margin-bottom:10px;
 }
 
+.card p{
+font-size:18px;
+}
+
+.whatsapp{
+position:fixed;
+right:20px;
+bottom:20px;
+background:#25D366;
+color:white;
+padding:15px 25px;
+border-radius:50px;
+text-decoration:none;
+font-size:20px;
+font-weight:bold;
+z-index:999;
+}
+
 footer{
-background:#111;
+background:#222;
 color:white;
 text-align:center;
 padding:20px;
 margin-top:30px;
-}.whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-color:white;
-padding:12px 18px;
-border-radius:50px;
-text-decoration:none;
-font-weight:bold;
-box-shadow:0 4px 10px rgba(0,0,0,.3);
-z-index:999;
 }
-</style>
 
+</style>
 </head>
 
 <body>
@@ -125,80 +158,127 @@ z-index:999;
 <a href="#">Contact</a>
 </nav>
 
-<div style="text-align:center; margin:20px;">
-  <input type="text" id="searchInput" onkeyup="searchCards()" placeholder="🔍 Search PDFs..."
-  style="width:80%; padding:12px; border-radius:10px; border:1px solid #ccc; font-size:16px;">
+<div class="search">
+<input type="text"
+id="searchInput"
+placeholder="🔍 Search PDF..."
+onkeyup="searchCards()">
 </div>
-  
-<section class="hero">
-<h2>Welcome Students ❤️</h2>
-<p>Free PDFs | JMI Entrance | Computer Notes | English | Islamic Knowledge</p>
 
-<a class="btn" href="Islamic_Knowledge_100_QA-v2.pdf" download>📘 Download Islamic Knowledge PDF</a>
+<section class="hero">
+
+<h2>Welcome Students ❤️</h2>
+
+<p>
+Free PDFs |
+JMI Entrance |
+Computer Notes |
+English |
+Islamic Knowledge
+</p>
+
+<a class="btn"
+href="Islamic_Knowledge_100_QA-v2.pdf"
+target="_blank">
+
+📘 Download Islamic Knowledge PDF
+
+</a>
+
+</section>
 
 <div class="container">
-<a href="Islamic_Knowledge_100_QA-v2.pdf" target="_blank" style="text-decoration:none;color:black;">
+<a href="Complete_Computer_Beginner_Guide_30_Pages.pdf" target="_blank">
 <div class="card">
-<h3>📘 Free PDFs</h3>
-<p>Download Islamic Knowledge PDF</p>
+<h3>💻 Complete Computer Guide</h3>
+<p>30 Pages Beginner Guide</p>
 </div>
 </a>
 
-<a href="computer_shortcuts_vip.pdf" target="_blank" style="text-decoration:none;color:black;">
+<a href="Computer_Shortcuts_Basic_Guide.pdf" target="_blank">
 <div class="card">
-<h3>💻 Computer Course</h3>
-<p>Download Computer Shortcuts PDF</p>
+<h3>⌨️ Computer Shortcuts</h3>
+<p>Basic Guide PDF</p>
 </div>
 </a>
 
-
-<a href="Daily_Use_English_Sentences_100.pdf" target="_blank" style="text-decoration:none;color:black;">
+<a href="Daily_Use_English_Sentences_100.pdf" target="_blank">
 <div class="card">
-<h3>🇬🇧 English</h3>
-<p>Vocabulary & Grammar.</p>
+<h3>🇬🇧 Daily English</h3>
+<p>100 Daily Use Sentences</p>
 </div>
 </a>
 
+<a href="Basic_English_Vocabulary_100_Words.pdf" target="_blank">
 <div class="card">
-<h3>📖 Islamic Knowledge</h3>
-<p>Dua, Hadith, Islamic GK.</p>
+<h3>📖 English Vocabulary</h3>
+<p>100 Important Words</p>
 </div>
+</a>
 
+<a href="Islamic_Knowledge_100_QA-v2.pdf" target="_blank">
 <div class="card">
-<h3>🎯 JMI Entrance</h3>
-<p>MCQs, Notes & Previous Papers.</p>
+<h3>🕌 Islamic Knowledge</h3>
+<p>100 Questions & Answers</p>
 </div>
+</a>
 
+<a href="Islamic_Information_100_QA.pdf" target="_blank">
 <div class="card">
-<h3>📞 Contact</h3>
-<p>Mohd Reyaz Raza</p>
+<h3>☪️ Islamic Information</h3>
+<p>100 Islamic Questions</p>
 </div>
+</a>
+
+<a href="GK_Digdarshika_2026.pdf" target="_blank">
+<div class="card">
+<h3>🌍 GK Digdarshika</h3>
+<p>General Knowledge 2026</p>
+</div>
+</a>
+
+<a href="World_GK_200_Questions.pdf" target="_blank">
+<div class="card">
+<h3>📚 World GK</h3>
+<p>200 Important Questions</p>
+</div>
+</a>
 
 </div>
 
 <footer>
+<h3>📚 Raza Education Hub</h3>
+<p>© 2026 Mohd Reyaz Raza</p>
+<p>Learn • Practice • Succeed</p>
 </footer>
 
-<a href="https://wa.me/917296019690" target="_blank" class="whatsapp">
+<a class="whatsapp"
+href="https://wa.me/917296019690"
+target="_blank">
 💬 WhatsApp
 </a>
 
 <script>
 function searchCards() {
-  let input = document.getElementById("searchInput").value.toLowerCase();
-  let cards = document.getElementsByClassName("card");
 
-  for (let i = 0; i < cards.length; i++) {
-    let text = cards[i].innerText.toLowerCase();
+let input = document.getElementById("searchInput").value.toLowerCase();
 
-    if (text.indexOf(input) > -1) {
-      cards[i].parentElement.style.display = "";
-    } else {
-      cards[i].parentElement.style.display = "none";
-    }
-  }
+let cards = document.getElementsByClassName("card");
+
+for(let i=0;i<cards.length;i++){
+
+let text = cards[i].innerText.toLowerCase();
+
+if(text.includes(input)){
+cards[i].parentElement.style.display="block";
+}else{
+cards[i].parentElement.style.display="none";
 }
-</script>  
-  
+
+}
+
+}
+</script>
+
 </body>
-</html>
+</html>  
