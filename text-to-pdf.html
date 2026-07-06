@@ -141,6 +141,27 @@ font-weight:600;
 
 </style>
 
+.toolbar{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+align-items:center;
+margin:12px 0;
+}
+
+.toolbar label{
+font-size:14px;
+font-weight:bold;
+}
+
+.toolbar input[type=color]{
+width:45px;
+height:45px;
+border:none;
+background:none;
+cursor:pointer;
+}
+    
 </head>
 
 <body>
@@ -194,6 +215,19 @@ placeholder="Example: My Notes">
 
 <label>Write Your Text</label>
 
+<div class="toolbar">
+
+<label>Title Color</label>
+<input type="color" id="titleColor" value="#1d4ed8">
+
+<label>Heading Color</label>
+<input type="color" id="headingColor" value="#16a34a">
+
+<label>Text Color</label>
+<input type="color" id="textColor" value="#000000">
+
+</div>    
+    
 <textarea
 id="text"
 placeholder="Write or paste your text here..."></textarea>
@@ -323,6 +357,11 @@ async function downloadPDF() {
 
     const text = textBox.value.trim();
 
+
+const titleColor = document.getElementById("titleColor").value;
+const headingColor = document.getElementById("headingColor").value;
+const textColor = document.getElementById("textColor").value;
+    
     if (!text) {
         alert("Please write some text first!");
         return;
@@ -354,13 +393,16 @@ async function downloadPDF() {
     const lineHeight = fontSize * 0.45;
 
     // Header
+    doc.setTextColor(titleColor);
     doc.setFontSize(18);
     doc.setFont(fontFamily, "bold");
     doc.text(fileName, margin, 15);
-
+    
+    doc.setDrawColor(titleColor);
     doc.line(15, 18, 195, 18);
 
     doc.setFont(fontFamily, "normal");
+    doc.setTextColor(textColor)
     doc.setFontSize(fontSize);
 
     const lines = doc.splitTextToSize(text, pageWidth);
@@ -373,13 +415,17 @@ async function downloadPDF() {
 
             doc.addPage();
 
-            doc.setFontSize(18);
-            doc.setFont(fontFamily, "bold");
-            doc.text(fileName, margin, 15);
-            doc.line(15, 18, 195, 18);
+            doc.setTextColor(titleColor);
+doc.setFontSize(18);
+doc.setFont(fontFamily, "bold");
+doc.text(fileName, margin, 15);
 
-            doc.setFont(fontFamily, "normal");
-            doc.setFontSize(fontSize);
+doc.setDrawColor(titleColor);
+doc.line(15, 18, 195, 18);
+
+doc.setFont(fontFamily, "normal");
+doc.setTextColor(textColor);
+doc.setFontSize(fontSize);
 
             y = 28;
         }
