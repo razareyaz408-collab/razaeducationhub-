@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Text to PDF Converter</title>
+<title>Professional Text to PDF</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -32,33 +32,42 @@ box-shadow:0 5px 15px rgba(0,0,0,.15);
 h2{
 text-align:center;
 margin-bottom:20px;
+color:#007bff;
 }
 
-input,select,textarea{
+label{
+font-weight:bold;
+display:block;
+margin-top:15px;
+}
+
+input,
+select,
+textarea{
 width:100%;
 padding:12px;
-margin:10px 0;
+margin-top:6px;
 border:1px solid #ccc;
 border-radius:8px;
 font-size:16px;
 }
 
 textarea{
-height:300px;
+height:350px;
 resize:vertical;
 }
 
 button{
 width:100%;
-padding:14px;
-font-size:18px;
+padding:15px;
+margin-top:20px;
 background:#007bff;
 color:#fff;
 border:none;
 border-radius:8px;
+font-size:18px;
 cursor:pointer;
 }
-
 button:hover{
 background:#0056cc;
 }
@@ -69,20 +78,28 @@ background:#0056cc;
 
 <div class="container">
 
-<h2>📝 Text to PDF Converter</h2>
+<h2>📝 Professional Text to PDF</h2>
 
-<input type="text" id="pdfName" placeholder="PDF File Name">
+<label>PDF File Name</label>
+<input type="text" id="pdfName" placeholder="Example: My Notes">
+
+<label>Font Size</label>
 
 <select id="fontSize">
-<option value="12">Small</option>
-<option value="14" selected>Medium</option>
-<option value="18">Large</option>
-<option value="22">Extra Large</option>
+<option value="12">12</option>
+<option value="14" selected>14</option>
+<option value="16">16</option>
+<option value="18">18</option>
+<option value="20">20</option>
 </select>
 
-<textarea id="text" placeholder="Write or Paste Your Text Here..."></textarea>
+<label>Enter Text</label>
 
-<button onclick="createPDF()">📄 Convert to PDF</button>
+<textarea id="text"></textarea>
+
+<button onclick="createPDF()">
+📄 Convert To PDF
+</button>
 
 <script>
 
@@ -90,28 +107,28 @@ async function createPDF(){
 
 const text=document.getElementById("text").value.trim();
 
-const fileName=document.getElementById("pdfName").value.trim() || "Text_Document";
-
-const fontSize=parseInt(document.getElementById("fontSize").value);
-
 if(text===""){
-alert("Please write or paste some text.");
+alert("Please enter some text.");
 return;
 }
 
+const fileName=document.getElementById("pdfName").value.trim() || "Document";
+
+const fontSize=parseInt(document.getElementById("fontSize").value);
+
 const { jsPDF }=window.jspdf;
 
-const pdf=new jsPDF("p","mm","a4");
+const pdf=new jsPDF({
+orientation:"portrait",
+unit:"mm",
+format:"a4"
+});
 
 pdf.setFont("helvetica","normal");
-
 pdf.setFontSize(fontSize);
 
 const pageWidth=190;
-
-const pageHeight=280;
-
-const lineHeight=fontSize*0.45;
+const pageHeight=277;
 
 const lines=pdf.splitTextToSize(text,pageWidth);
 
@@ -129,7 +146,7 @@ y=15;
 
 pdf.text(lines[i],10,y);
 
-y+=lineHeight;
+y+=fontSize*0.5;
 
 }
 
