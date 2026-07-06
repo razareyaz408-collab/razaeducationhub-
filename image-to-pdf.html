@@ -75,8 +75,15 @@ background:#004dcc;
 
 <div class="container">
 
-<h2>📷 Multiple Image to PDF</h2>
+<h2 id="pdfTitle">📷 Professional Image to PDF</h2>
 
+<label>PDF Title</label>
+
+<input
+type="text"
+id="pdfTitleInput"
+placeholder="Enter PDF Title">
+  
 <input
 type="file"
 id="images"
@@ -127,10 +134,19 @@ alert("Please select one or more images.");
 return;
 }
 
+const pdfTitle = document.getElementById("pdfTitleInput").value.trim();  
+  
 const { jsPDF } = window.jspdf;
 
 const pdf = new jsPDF("p","mm","a4");
 
+if(pdfTitle){
+  pdf.setFontSize(20);
+  pdf.setFont(undefined,"bold");
+  pdf.text(pdfTitle,105,20,{align:"center"});
+  pdf.addPage();
+}
+  
 for(let i=0;i<imageFiles.length;i++){
 
 const file=imageFiles[i];
@@ -177,6 +193,32 @@ pdf.addImage(data,"JPEG",x,y,width,height);
 
 }
 
+const totalPages = pdf.getNumberOfPages();
+
+for (let i = 1; i <= totalPages; i++) {
+  pdf.setPage(i);
+
+  pdf.setDrawColor(180);
+  pdf.line(15, 287, 195, 287);
+
+  pdf.setFontSize(10);
+  pdf.setTextColor(0);
+
+  pdf.text(
+    "Page " + i + " of " + totalPages,
+    105,
+    293,
+    { align: "center" }
+  );
+
+  pdf.text(
+    "Created by Raza Education Hub",
+    195,
+    293,
+    { align: "right" }
+  );
+}  
+  
 pdf.save("Images_to_PDF.pdf");
 
 }
