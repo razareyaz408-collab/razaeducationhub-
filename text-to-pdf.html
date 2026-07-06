@@ -254,7 +254,7 @@ placeholder="Start typing here..."></textarea>
 
 <div class="toolbar">
 
-<button onclick="createPDF()">
+<button onclick="downloadPDF()">
 
 📄 Download PDF
 
@@ -363,6 +363,29 @@ pdf.save(fileName + ".pdf");
 
 updatePreview();
 
+function downloadPDF() {
+
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+
+  const text = textBox.value;
+
+  if (text.trim() === "") {
+    alert("Please write some text first!");
+    return;
+  }
+
+  doc.setFont("helvetica");
+  doc.setFontSize(16);
+
+  const lines = doc.splitTextToSize(text, 180);
+
+  doc.text(lines, 15, 20);
+
+  doc.save("RazaEducationHub.pdf");
+}
+  
 </script>
 
 </div>
