@@ -83,6 +83,15 @@ background:#004dcc;
 type="text"
 id="pdfTitleInput"
 placeholder="Enter PDF Title">
+
+<label>Logo (Optional)</label>
+
+<input
+type="file"
+id="logoInput"
+accept="image/*">
+
+
   
 <input
 type="file"
@@ -101,6 +110,19 @@ multiple>
 <script>
 
 let imageFiles=[];
+
+ let logoData = null;
+
+document.getElementById("logoInput").addEventListener("change", function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(event){
+    logoData = event.target.result;
+  };
+  reader.readAsDataURL(file);
+}); 
 
 document.getElementById("images").addEventListener("change",function(){
 
@@ -140,12 +162,31 @@ const { jsPDF } = window.jspdf;
 
 const pdf = new jsPDF("p","mm","a4");
 
+const today = new Date();
+
+const dateTime =
+today.toLocaleDateString() + " | " +
+today.toLocaleTimeString();
+  
 if(pdfTitle){
-  pdf.setFontSize(20);
-  pdf.setFont(undefined,"bold");
-  pdf.text(pdfTitle,105,20,{align:"center"});
-  pdf.addPage();
-}
+
+    if(logoData){
+        pdf.addImage(logoData,"PNG",85,15,40,40);
+    }
+
+    pdf.setFontSize(22);
+    pdf.setFont(undefined,"bold");
+    pdf.text(pdfTitle,105,65,{align:"center"});
+
+    pdf.setFontSize(10);
+    pdf.setFont(undefined,"normal");
+    pdf.text(dateTime,105,73,{align:"center"});
+
+    pdf.setFontSize(12);
+    pdf.text("Created by Raza Education Hub",105,82,{align:"center"});
+
+    pdf.addPage();
+                }
   
 for(let i=0;i<imageFiles.length;i++){
 
