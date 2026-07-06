@@ -1,124 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Professional Text to PDF</title>
+
+<title>Professional Text to PDF Converter</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <style>
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#f3f4f6;
+
+background:linear-gradient(135deg,#4f46e5,#7c3aed,#2563eb);
+
+min-height:100vh;
+
 padding:20px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
 }
 
 .container{
-max-width:700px;
-margin:auto;
+
+width:100%;
+
+max-width:850px;
+
 background:#fff;
-padding:20px;
-border-radius:12px;
-box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+border-radius:20px;
+
+padding:25px;
+
+box-shadow:0 15px 40px rgba(0,0,0,.25);
+
 }
 
-h2{
+h1{
+
 text-align:center;
-margin-bottom:20px;
-color:#007bff;
+
+font-size:32px;
+
+color:#1e3a8a;
+
+margin-bottom:10px;
+
+}
+
+.subtitle{
+
+text-align:center;
+
+color:#666;
+
+margin-bottom:25px;
+
 }
 
 label{
-font-weight:bold;
+
+font-weight:600;
+
 display:block;
+
 margin-top:15px;
+
+margin-bottom:8px;
+
 }
 
 input,
 select,
 textarea{
+
 width:100%;
-padding:12px;
-margin-top:6px;
-border:1px solid #ccc;
-border-radius:8px;
+
+padding:14px;
+
+border:2px solid #ddd;
+
+border-radius:12px;
+
 font-size:16px;
+
+outline:none;
+
+transition:.3s;
+
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+border-color:#2563eb;
+
+box-shadow:0 0 10px rgba(37,99,235,.25);
+
 }
 
 textarea{
-height:350px;
+
+height:320px;
+
 resize:vertical;
+
+line-height:1.8;
+
 }
 
-button{
-width:100%;
-padding:15px;
-margin-top:20px;
-background:#007bff;
-color:#fff;
+.toolbar{
+
+display:flex;
+
+gap:10px;
+
+margin:20px 0;
+
+flex-wrap:wrap;
+
+}
+
+.toolbar button{
+
+flex:1;
+
+padding:12px;
+
 border:none;
-border-radius:8px;
-font-size:18px;
+
+border-radius:10px;
+
+background:#2563eb;
+
+color:#fff;
+
+font-size:16px;
+
 cursor:pointer;
+
 }
-button:hover{
-background:#0056cc;
+
+.toolbar button:hover{
+
+background:#1d4ed8;
+
 }
+
+.counter{
+
+text-align:right;
+
+margin-top:8px;
+
+color:#666;
+
+font-size:14px;
+
+}
+
+.preview{
+
+margin-top:25px;
+
+border:2px dashed #2563eb;
+
+padding:20px;
+
+border-radius:15px;
+
+background:#f8fafc;
+
+min-height:180px;
+
+white-space:pre-wrap;
+
+line-height:1.8;
+
+}
+
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<h2>📝 Professional Text to PDF</h2>
+<h1>📝 Professional Text to PDF</h1>
+
+<p class="subtitle">
+
+Write, Edit & Download Beautiful PDFs
+
+</p>
 
 <label>PDF File Name</label>
-<input type="text" id="pdfName" placeholder="Example: My Notes">
+
+<input
+type="text"
+id="pdfName"
+placeholder="Example : My Notes">
 
 <label>Font Size</label>
 
 <select id="fontSize">
-<option value="12">12</option>
-<option value="14" selected>14</option>
-<option value="16">16</option>
-<option value="18">18</option>
-<option value="20">20</option>
+
+<option value="12">12 px</option>
+
+<option value="14" selected>14 px</option>
+
+<option value="16">16 px</option>
+
+<option value="18">18 px</option>
+
+<option value="20">20 px</option>
+
 </select>
 
-<label>Enter Text</label>
+<label>Write Your Text</label>
 
-<textarea id="text"></textarea>
+<textarea
+id="text"
+placeholder="Start typing here..."></textarea>
+
+<div class="counter">
+
+<span id="words">Words : 0</span>
+
+|
+
+<span id="chars">Characters : 0</span>
+
+</div>
+
+<div class="toolbar">
 
 <button onclick="createPDF()">
-📄 Convert To PDF
+
+📄 Download PDF
+
 </button>
+
+<button onclick="clearText()">
+
+🗑 Clear
+
+</button>
+
+</div>
+
+<div class="preview" id="preview">
+
+Live Preview...
+
+</div>
 
 <script>
 
+const textBox = document.getElementById("text");
+const preview = document.getElementById("preview");
+const words = document.getElementById("words");
+const chars = document.getElementById("chars");
+
+function updatePreview(){
+
+const text = textBox.value;
+
+preview.textContent = text || "Live Preview...";
+
+chars.textContent = "Characters : " + text.length;
+
+const wordCount = text.trim()===""
+?0
+:text.trim().split(/\s+/).length;
+
+words.textContent = "Words : " + wordCount;
+
+}
+
+textBox.addEventListener("input",updatePreview);
+
+function clearText(){
+
+textBox.value="";
+
+updatePreview();
+
+  }
+
 async function createPDF(){
 
-const text=document.getElementById("text").value.trim();
+const text = textBox.value.trim();
 
 if(text===""){
-alert("Please enter some text.");
+alert("Please write some text.");
 return;
 }
 
-const fileName=document.getElementById("pdfName").value.trim() || "Document";
+const fileName =
+document.getElementById("pdfName").value.trim()
+|| "Document";
 
-const fontSize=parseInt(document.getElementById("fontSize").value);
+const fontSize =
+parseInt(document.getElementById("fontSize").value);
 
-const { jsPDF }=window.jspdf;
+const { jsPDF } = window.jspdf;
 
-const pdf=new jsPDF({
+const pdf = new jsPDF({
 orientation:"portrait",
 unit:"mm",
 format:"a4"
@@ -127,12 +334,12 @@ format:"a4"
 pdf.setFont("helvetica","normal");
 pdf.setFontSize(fontSize);
 
-const pageWidth=190;
-const pageHeight=277;
+const pageWidth = 180;
+const pageHeight = 270;
 
-const lines=pdf.splitTextToSize(text,pageWidth);
+const lines = pdf.splitTextToSize(text,pageWidth);
 
-let y=15;
+let y = 20;
 
 for(let i=0;i<lines.length;i++){
 
@@ -140,13 +347,13 @@ if(y>pageHeight){
 
 pdf.addPage();
 
-y=15;
+y=20;
 
 }
 
-pdf.text(lines[i],10,y);
+pdf.text(lines[i],15,y);
 
-y+=fontSize*0.5;
+y += fontSize * 0.55;
 
 }
 
@@ -154,9 +361,11 @@ pdf.save(fileName + ".pdf");
 
 }
 
+updatePreview();
+
 </script>
 
 </div>
 
 </body>
-</html>
+</html>  
