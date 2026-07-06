@@ -3,14 +3,16 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Professional Text to PDF Converter</title>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
 
@@ -23,25 +25,19 @@ font-family:'Poppins',sans-serif;
 
 body{
 
-background:linear-gradient(135deg,#4f46e5,#7c3aed,#2563eb);
+background:linear-gradient(135deg,#2563eb,#7c3aed);
 
 min-height:100vh;
 
-padding:20px;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
+padding:25px;
 
 }
 
 .container{
 
-width:100%;
+max-width:900px;
 
-max-width:850px;
+margin:auto;
 
 background:#fff;
 
@@ -49,7 +45,7 @@ border-radius:20px;
 
 padding:25px;
 
-box-shadow:0 15px 40px rgba(0,0,0,.25);
+box-shadow:0 20px 45px rgba(0,0,0,.20);
 
 }
 
@@ -59,7 +55,7 @@ text-align:center;
 
 font-size:32px;
 
-color:#1e3a8a;
+color:#2563eb;
 
 margin-bottom:10px;
 
@@ -77,11 +73,11 @@ margin-bottom:25px;
 
 label{
 
-font-weight:600;
-
 display:block;
 
-margin-top:15px;
+font-weight:600;
+
+margin-top:18px;
 
 margin-bottom:8px;
 
@@ -95,11 +91,11 @@ width:100%;
 
 padding:14px;
 
+font-size:16px;
+
 border:2px solid #ddd;
 
 border-radius:12px;
-
-font-size:16px;
 
 outline:none;
 
@@ -113,13 +109,13 @@ textarea:focus{
 
 border-color:#2563eb;
 
-box-shadow:0 0 10px rgba(37,99,235,.25);
+box-shadow:0 0 12px rgba(37,99,235,.25);
 
 }
 
 textarea{
 
-height:320px;
+height:340px;
 
 resize:vertical;
 
@@ -127,73 +123,19 @@ line-height:1.8;
 
 }
 
-.toolbar{
+button{
 
-display:flex;
-
-gap:10px;
-
-margin:20px 0;
-
-flex-wrap:wrap;
-
-}
-
-.toolbar button{
-
-flex:1;
-
-padding:12px;
+padding:14px;
 
 border:none;
 
-border-radius:10px;
-
-background:#2563eb;
-
-color:#fff;
-
-font-size:16px;
+border-radius:12px;
 
 cursor:pointer;
 
-}
+font-size:16px;
 
-.toolbar button:hover{
-
-background:#1d4ed8;
-
-}
-
-.counter{
-
-text-align:right;
-
-margin-top:8px;
-
-color:#666;
-
-font-size:14px;
-
-}
-
-.preview{
-
-margin-top:25px;
-
-border:2px dashed #2563eb;
-
-padding:20px;
-
-border-radius:15px;
-
-background:#f8fafc;
-
-min-height:180px;
-
-white-space:pre-wrap;
-
-line-height:1.8;
+font-weight:600;
 
 }
 
@@ -209,7 +151,7 @@ line-height:1.8;
 
 <p class="subtitle">
 
-Write, Edit & Download Beautiful PDFs
+Create beautiful PDF documents instantly.
 
 </p>
 
@@ -218,7 +160,7 @@ Write, Edit & Download Beautiful PDFs
 <input
 type="text"
 id="pdfName"
-placeholder="Example : My Notes">
+placeholder="Example: My Notes">
 
 <label>Font Size</label>
 
@@ -234,41 +176,70 @@ placeholder="Example : My Notes">
 
 <option value="20">20 px</option>
 
+<option value="24">24 px</option>
+
+</select>
+
+<label>Font Family</label>
+
+<select id="fontFamily">
+
+<option value="helvetica">Helvetica</option>
+
+<option value="times">Times New Roman</option>
+
+<option value="courier">Courier</option>
+
 </select>
 
 <label>Write Your Text</label>
 
 <textarea
 id="text"
-placeholder="Start typing here..."></textarea>
+placeholder="Write or paste your text here..."></textarea>
 
-<div class="counter">
+<div id="counter" style="margin-top:10px;text-align:right;color:#666;font-size:14px;">
 
-<span id="words">Words : 0</span>
+Words: <span id="words">0</span>
 
 |
 
-<span id="chars">Characters : 0</span>
+Characters: <span id="chars">0</span>
 
 </div>
 
-<div class="toolbar">
+<div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;">
 
-<button onclick="downloadPDF()">
+<button
+id="downloadBtn"
+style="flex:1;background:#2563eb;color:white;"
+onclick="downloadPDF()">
 
 📄 Download PDF
 
 </button>
 
-<button onclick="clearText()">
+<button
+style="flex:1;background:#dc2626;color:white;"
+onclick="clearText()">
 
 🗑 Clear
 
 </button>
 
+<button
+style="flex:1;background:#16a34a;color:white;"
+onclick="toggleDarkMode()">
+
+🌙 Dark Mode
+
+</button>
+
 </div>
 
-<div class="preview" id="preview">
+<div
+id="preview"
+style="margin-top:25px;padding:20px;border:2px dashed #2563eb;border-radius:15px;background:#f8fafc;min-height:180px;white-space:pre-wrap;line-height:1.8;">
 
 Live Preview...
 
@@ -281,114 +252,246 @@ const preview = document.getElementById("preview");
 const words = document.getElementById("words");
 const chars = document.getElementById("chars");
 
-function updatePreview(){
+let darkMode = false;
 
-const text = textBox.value;
+function updatePreview() {
 
-preview.textContent = text || "Live Preview...";
+    const text = textBox.value;
 
-chars.textContent = "Characters : " + text.length;
+    preview.textContent = text || "Live Preview...";
 
-const wordCount = text.trim()===""
-?0
-:text.trim().split(/\s+/).length;
+    chars.textContent = text.length;
 
-words.textContent = "Words : " + wordCount;
+    const count = text.trim() === ""
+        ? 0
+        : text.trim().split(/\s+/).length;
 
-}
-
-textBox.addEventListener("input",updatePreview);
-
-function clearText(){
-
-textBox.value="";
-
-updatePreview();
-
-  }
-
-async function createPDF(){
-
-const text = textBox.value.trim();
-
-if(text===""){
-alert("Please write some text.");
-return;
-}
-
-const fileName =
-document.getElementById("pdfName").value.trim()
-|| "Document";
-
-const fontSize =
-parseInt(document.getElementById("fontSize").value);
-
-const { jsPDF } = window.jspdf;
-
-const pdf = new jsPDF({
-orientation:"portrait",
-unit:"mm",
-format:"a4"
-});
-
-pdf.setFont("helvetica","normal");
-pdf.setFontSize(fontSize);
-
-const pageWidth = 180;
-const pageHeight = 270;
-
-const lines = pdf.splitTextToSize(text,pageWidth);
-
-let y = 20;
-
-for(let i=0;i<lines.length;i++){
-
-if(y>pageHeight){
-
-pdf.addPage();
-
-y=20;
+    words.textContent = count;
 
 }
 
-pdf.text(lines[i],15,y);
+textBox.addEventListener("input", updatePreview);
 
-y += fontSize * 0.55;
+function clearText() {
+
+    if(confirm("Clear all text?")){
+
+        textBox.value = "";
+
+        updatePreview();
+
+    }
 
 }
 
-pdf.save(fileName + ".pdf");
+function toggleDarkMode(){
+
+    darkMode = !darkMode;
+
+    if(darkMode){
+
+        document.body.style.background="#111827";
+
+        document.querySelector(".container").style.background="#1f2937";
+
+        document.querySelector(".container").style.color="#ffffff";
+
+        preview.style.background="#111827";
+
+        preview.style.color="#ffffff";
+
+    }else{
+
+        document.body.style.background=
+        "linear-gradient(135deg,#2563eb,#7c3aed)";
+
+        document.querySelector(".container").style.background="#ffffff";
+
+        document.querySelector(".container").style.color="#000000";
+
+        preview.style.background="#f8fafc";
+
+        preview.style.color="#000000";
+
+    }
 
 }
 
 updatePreview();
 
-function downloadPDF() {
+async function downloadPDF() {
 
-  const { jsPDF } = window.jspdf;
+    const text = textBox.value.trim();
 
-  const doc = new jsPDF();
+    if (!text) {
+        alert("Please write some text first!");
+        return;
+    }
 
-  const text = textBox.value;
+    const { jsPDF } = window.jspdf;
 
-  if (text.trim() === "") {
-    alert("Please write some text first!");
-    return;
-  }
+    const doc = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4"
+    });
 
-  doc.setFont("helvetica");
-  doc.setFontSize(16);
+    const fileName =
+        document.getElementById("pdfName").value.trim() || "Document";
 
-  const lines = doc.splitTextToSize(text, 180);
+    const fontSize =
+        parseInt(document.getElementById("fontSize").value);
 
-  doc.text(lines, 15, 20);
+    const fontFamily =
+        document.getElementById("fontFamily").value;
 
-  doc.save("RazaEducationHub.pdf");
+    doc.setFont(fontFamily, "normal");
+    doc.setFontSize(fontSize);
+
+    const margin = 15;
+    const pageWidth = 180;
+    const pageHeight = 280;
+    const lineHeight = fontSize * 0.45;
+
+    // Header
+    doc.setFontSize(18);
+    doc.setFont(fontFamily, "bold");
+    doc.text(fileName, margin, 15);
+
+    doc.line(15, 18, 195, 18);
+
+    doc.setFont(fontFamily, "normal");
+    doc.setFontSize(fontSize);
+
+    const lines = doc.splitTextToSize(text, pageWidth);
+
+    let y = 28;
+
+    for (let i = 0; i < lines.length; i++) {
+
+        if (y > pageHeight) {
+
+            doc.addPage();
+
+            doc.setFontSize(18);
+            doc.setFont(fontFamily, "bold");
+            doc.text(fileName, margin, 15);
+            doc.line(15, 18, 195, 18);
+
+            doc.setFont(fontFamily, "normal");
+            doc.setFontSize(fontSize);
+
+            y = 28;
+        }
+
+        doc.text(lines[i], margin, y);
+
+        y += lineHeight;
+    }
+
+    const totalPages = doc.getNumberOfPages();
+
+    for (let i = 1; i <= totalPages; i++) {
+
+        doc.setPage(i);
+
+        doc.setFontSize(10);
+
+        doc.line(15, 287, 195, 287);
+
+        doc.text(
+            "Generated by Raza Education Hub",
+            15,
+            292
+        );
+
+        doc.text(
+            "Page " + i + " of " + totalPages,
+            170,
+            292
+        );
+
+    }
+
+    doc.save(fileName + ".pdf");
+
 }
-  
+
+// ===== Auto Save =====
+
+setInterval(function(){
+
+    localStorage.setItem(
+        "pdf_text",
+        textBox.value
+    );
+
+    localStorage.setItem(
+        "pdf_name",
+        document.getElementById("pdfName").value
+    );
+
+},1000);
+
+// ===== Auto Restore =====
+
+window.onload=function(){
+
+    const savedText=
+    localStorage.getItem("pdf_text");
+
+    const savedName=
+    localStorage.getItem("pdf_name");
+
+    if(savedText){
+
+        textBox.value=savedText;
+
+    }
+
+    if(savedName){
+
+        document.getElementById("pdfName").value=savedName;
+
+    }
+
+    updatePreview();
+
+};
+
+// ===== Watermark =====
+
+function addWatermark(doc){
+
+    doc.setTextColor(235);
+
+    doc.setFontSize(40);
+
+    doc.text(
+        "RAZA EDUCATION HUB",
+        28,
+        165,
+        {
+            angle:45
+        }
+    );
+
+    doc.setTextColor(0);
+
+}
+
+// ===== Current Date =====
+
+function getCurrentDate(){
+
+    return new Date().toLocaleString();
+
+}
+
 </script>
 
 </div>
 
 </body>
+
 </html>  
