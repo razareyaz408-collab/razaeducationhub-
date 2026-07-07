@@ -418,6 +418,41 @@ width:90%;">
 🎙️ Raza Voice Studio AI
 </button>
 </a>
+
+<hr>
+
+<div style="padding:20px;text-align:center;">
+<h2>🎤 Raza Voice Studio AI</h2>
+
+<textarea
+id="text"
+placeholder="Yahan apna text likho..."
+style="width:90%;height:150px;"></textarea>
+
+<br><br>
+
+<button onclick="speak()">
+🔊 Suno
+</button>
+
+<button onclick="stopVoice()">
+⏹ Stop
+</button>
+
+</div>
+
+<script>
+function speak(){
+let text=document.getElementById("text").value;
+let speech=new SpeechSynthesisUtterance(text);
+speech.lang="hi-IN";
+window.speechSynthesis.speak(speech);
+}
+
+function stopVoice(){
+window.speechSynthesis.cancel();
+}
+</script>
   
 </body>
 </html>  
