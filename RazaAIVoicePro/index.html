@@ -4,8 +4,7 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Raza AI Voice Pro</title>
 
@@ -17,25 +16,51 @@ content="width=device-width, initial-scale=1.0">
 
 <div class="container">
 
-<h1>🎙️ Raza AI Voice Pro</h1>
+<h1>🎤 Raza AI Voice Pro</h1>
 
-<p>Professional AI Text To Speech Tool</p>
+<p class="subtitle">
+Professional AI Text To Speech Tool
+</p>
 
 <textarea
 id="text"
-placeholder="Type your text here...">
-</textarea>
+placeholder="Type your text here..."
+></textarea>
 
 <p id="count">0 Characters</p>
 
-<select id="voiceSelect">
-<option>Loading Voices...</option>
-</select>
+<label>Select Voice</label>
+
+<select id="voiceSelect"></select>
+
+<div class="buttons">
 
 <button onclick="speakText()">
-🎤 Generate Voice
+🎙️ Generate
 </button>
 
+<button onclick="clearText()">
+🗑️ Clear
+</button>
+
+</div>
+
+<div class="buttons">
+
+<button onclick="pauseVoice()">
+⏸ Pause
+</button>
+
+<button onclick="resumeVoice()">
+▶ Resume
+</button>
+
+<button onclick="stopVoice()">
+⏹ Stop
+</button>
+
+</div>
+  
 </div>
 
 <script src="script.js"></script>
