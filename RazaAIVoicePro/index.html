@@ -1,69 +1,124 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
 
-<meta charset="UTF-8">
+body{
+background:linear-gradient(135deg,#2563EB,#7C3AED);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+.container{
+width:100%;
+max-width:700px;
+background:#ffffff;
+padding:25px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
 
-<title>Raza AI Voice Pro</title>
+h1{
+text-align:center;
+font-size:32px;
+color:#2563EB;
+margin-bottom:10px;
+}
 
-<link rel="stylesheet" href="style.css">
+.subtitle{
+text-align:center;
+color:#666;
+margin-bottom:20px;
+font-size:16px;
+}
 
-</head>
+textarea{
+width:100%;
+height:220px;
+padding:15px;
+font-size:18px;
+border:2px solid #2563EB;
+border-radius:15px;
+outline:none;
+resize:none;
+margin-bottom:10px;
+}
 
-<body>
+textarea:focus{
+border-color:#7C3AED;
+box-shadow:0 0 10px rgba(124,58,237,.3);
+}
 
-<div class="container">
+#count{
+text-align:right;
+font-weight:bold;
+margin-bottom:15px;
+color:#555;
+}
+label{
+display:block;
+font-weight:bold;
+margin-bottom:8px;
+color:#333;
+}
 
-<h1>🎤 Raza AI Voice Pro</h1>
+select{
+width:100%;
+padding:14px;
+font-size:16px;
+border:2px solid #2563EB;
+border-radius:12px;
+outline:none;
+margin-bottom:20px;
+background:#fff;
+}
 
-<p class="subtitle">
-Professional AI Text To Speech Tool
-</p>
+.buttons{
+display:flex;
+gap:10px;
+margin-top:10px;
+flex-wrap:wrap;
+}
 
-<textarea
-id="text"
-placeholder="Type your text here..."
-></textarea>
+button{
+flex:1;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#2563EB;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
 
-<p id="count">0 Characters</p>
+button:hover{
+background:#1D4ED8;
+transform:scale(1.03);
+}
 
-<label>Select Voice</label>
+@media(max-width:600px){
 
-<select id="voiceSelect"></select>
+.buttons{
+flex-direction:column;
+}
 
-<div class="buttons">
+button{
+width:100%;
+}
 
-<button onclick="speakText()">
-🎙️ Generate
-</button>
+h1{
+font-size:26px;
+}
 
-<button onclick="clearText()">
-🗑️ Clear
-</button>
+textarea{
+height:180px;
+}
 
-</div>
-
-<div class="buttons">
-
-<button onclick="pauseVoice()">
-⏸ Pause
-</button>
-
-<button onclick="resumeVoice()">
-▶ Resume
-</button>
-
-<button onclick="stopVoice()">
-⏹ Stop
-</button>
-
-</div>
-  
-</div>
-
-<script src="script.js"></script>
-
-</body>
-</html>
+}
