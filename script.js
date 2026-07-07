@@ -1,60 +1,58 @@
+const text = document.getElementById("text");
+const count = document.getElementById("count");
+const voiceSelect = document.getElementById("voiceSelect");
+
 let voices = [];
 
-function loadVoiceList() {
+function loadVoices() {
   voices = speechSynthesis.getVoices();
 
-  let select = document.getElementById("voiceSelect");
-  if (!select) return;
-
-  select.innerHTML = "";
+  voiceSelect.innerHTML = "";
 
   voices.forEach((voice, index) => {
     let option = document.createElement("option");
     option.value = index;
-
-    let gender = "";
-
-    if (voice.name.toLowerCase().includes("female") ||
-        voice.name.toLowerCase().includes("woman")) {
-      gender = "👩";
-    } else if (voice.name.toLowerCase().includes("male") ||
-               voice.name.toLowerCase().includes("man")) {
-      gender = "👨";
-    }
-
-    option.text = `${gender} ${voice.name} (${voice.lang})`;
-    select.appendChild(option);
+    option.text = `${voice.name} (${voice.lang})`;
+    voiceSelect.appendChild(option);
   });
 }
 
-speechSynthesis.onvoiceschanged = loadVoiceList;
-loadVoiceList();
+speechSynthesis.onvoiceschanged = loadVoices;
+loadVoices();
 
+text.addEventListener("input", () => {
+  count.innerText = text.value.length + " Characters";
+});
 function speakText() {
-  let text = document.getElementById("text").value;
 
-  if (text.trim() === "") {
+  if (text.value.trim() === "") {
     alert("Please enter some text.");
     return;
   }
 
   speechSynthesis.cancel();
 
-  let speech = new SpeechSynthesisUtterance(text);
+  let speech = new SpeechSynthesisUtterance(text.value);
 
-  let select = document.getElementById("voiceSelect");
-  let voice = voices[select.value];
+  let selectedVoice = voices[voiceSelect.value];
 
-  if (voice) {
-    speech.voice = voice;
-    speech.lang = voice.lang;
+  if (selectedVoice) {
+    speech.voice = selectedVoice;
+    speech.lang = selectedVoice.lang;
   }
 
-  speech.rate = 1;
-  speech.pitch = 1;
+  speech.rate = Number(document.getElementById("speed").value);
+  speech.pitch = Number(document.getElementById("pitch").value);
   speech.volume = 1;
 
   speechSynthesis.speak(speech);
+
+}
+
+function clearText() {
+  text.value = "";
+  count.innerText = "0 Characters";
+  speechSynthesis.cancel();
 }
 
 function pauseVoice() {
@@ -68,14 +66,3 @@ function resumeVoice() {
 function stopVoice() {
   speechSynthesis.cancel();
 }
-
-function clearText() {
-  document.getElementById("text").value = "";
-
-  let count = document.getElementById("count");
-  if (count) {
-    count.innerHTML = "0 Characters";
-  }
-
-  speechSynthesis.cancel();
-  }
