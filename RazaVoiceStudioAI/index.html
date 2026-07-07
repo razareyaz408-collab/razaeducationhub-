@@ -250,6 +250,23 @@ border:2px solid #2563EB;
 const txt=document.getElementById("text");
 const count=document.getElementById("count");
 
+function loadVoiceList() {
+  let select = document.getElementById("voiceList");
+  select.innerHTML = "";
+
+  let voices = speechSynthesis.getVoices();
+
+  voices.forEach((voice, index) => {
+    let option = document.createElement("option");
+    option.value = index;
+    option.text = voice.name + " (" + voice.lang + ")";
+    select.appendChild(option);
+  });
+}
+
+speechSynthesis.onvoiceschanged = loadVoiceList;
+loadVoiceList();  
+  
 txt.addEventListener("input",function(){
 count.innerHTML=txt.value.length+" Characters";
 });
@@ -265,7 +282,8 @@ return;
 
 let speech=new SpeechSynthesisUtterance(text);
 
-speech.lang="en-US";
+speech.lang = document.getElementById("voiceSelect").value;
+speech.voice = speechSynthesis.getVoices()[document.getElementById("voiceList").value];  
 
 speech.rate=1;
 
