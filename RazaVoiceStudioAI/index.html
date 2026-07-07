@@ -205,7 +205,25 @@ font-weight:bold;
 color:#555;
 ">
 0 Characters
+</p>
+<label style="font-weight:bold;">🌐 Select Voice</label>
 
+<select id="voiceSelect" style="
+width:100%;
+padding:12px;
+margin-top:10px;
+margin-bottom:15px;
+border-radius:12px;
+font-size:16px;
+border:2px solid #2563EB;
+">
+
+<option value="en-US">🇺🇸 English</option>
+<option value="hi-IN">🇮🇳 Hindi</option>
+<option value="ur-PK">🇵🇰 Urdu</option>
+
+</select>
+  
 <div style="display:flex;gap:10px;margin-top:15px;flex-wrap:wrap;">
 
 <button onclick="speakText()" style="flex:1;padding:14px;background:#2563EB;color:white;border:none;border-radius:12px;font-size:18px;">
@@ -215,7 +233,11 @@ color:#555;
 <button onclick="document.getElementById('text').value='';count.innerHTML='0 Characters';" style="flex:1;padding:14px;background:#EF4444;color:white;border:none;border-radius:12px;font-size:18px;">
 🗑️ Clear
 </button>
+<button onclick="speechSynthesis.pause()">⏸️ Pause</button>
 
+<button onclick="speechSynthesis.resume()">▶️ Resume</button>
+
+<button onclick="speechSynthesis.cancel()">⏹️ Stop</button>
 </div>
   
 </p>
