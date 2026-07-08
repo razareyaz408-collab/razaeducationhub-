@@ -465,12 +465,41 @@ window.speechSynthesis.cancel();
 <p id="answer"></p>
 
 <script>
-function askAI(){
-  let q = document.getElementById("question").value;
-  document.getElementById("answer").innerHTML =
-  "Aapne pucha: " + q + "<br><br>AI ka jawab yahan aayega.";
-}
-</script> 
+async function askAI(){
 
+let q = document.getElementById("question").value;
+
+document.getElementById("answer").innerHTML="⏳ Soch raha hoon...";
+
+const response = await fetch("https://openrouter.ai/api/v1/chat/completions",{
+
+method:"POST",
+
+headers:{
+"Authorization":"Bearer Reyaz Raza 
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+model:"openai/gpt-4o-mini",
+
+messages:[
+{
+role:"user",
+content:q
+}
+]
+
+})
+
+});
+
+const data = await response.json();
+
+document.getElementById("answer").innerHTML=data.choices[0].message.content;
+
+}
+</script>
 </body>
 </html>  
