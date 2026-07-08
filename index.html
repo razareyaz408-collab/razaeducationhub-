@@ -454,6 +454,23 @@ window.speechSynthesis.cancel();
 }
 </script>
 
+ <h2>🤖 AI Chatbot</h2>
+
+<textarea id="question" placeholder="Apna sawal likho..." style="width:90%;height:100px;"></textarea>
+
+<br><br>
+
+<button onclick="askAI()">💬 Pucho</button>
+
+<p id="answer"></p>
+
+<script>
+function askAI(){
+  let q = document.getElementById("question").value;
+  document.getElementById("answer").innerHTML =
+  "Aapne pucha: " + q + "<br><br>AI ka jawab yahan aayega.";
+}
+</script> 
 
 </body>
 </html>  
